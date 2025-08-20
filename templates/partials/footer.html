@@ -1,0 +1,88 @@
+{% load static %}
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <a href="#" class="footer-brand">Careerguide.academy</a>
+                <p>Empowering individuals to achieve their academic and professional dreams through personalized guidance and expert knowledge.</p>
+                <div class="social-links">
+                    {% if site_settings.linkedin_url %}
+                        <a href="{{ site_settings.linkedin_url }}" target="_blank" rel="noopener noreferrer">
+                            <span>in</span>
+                        </a>
+                    {% endif %}
+                    
+                    {% if site_settings.twitter_url %}
+                        <a href="{{ site_settings.twitter_url }}" target="_blank" rel="noopener noreferrer">
+                            <span>tw</span>
+                        </a>
+                    {% endif %}
+
+                    {% if site_settings.facebook_url %}
+                        <a href="{{ site_settings.facebook_url }}" target="_blank" rel="noopener noreferrer">
+                            <span>fb</span>
+                        </a>
+                    {% endif %}
+
+                    {% if site_settings.instagram_url %}
+                        <a href="{{ site_settings.instagram_url }}" target="_blank" rel="noopener noreferrer">
+                            <span>ig</span>
+                        </a>
+                    {% endif %}
+
+                    {% if site_settings.contact_email %}
+                        <a href="mailto:{{ site_settings.contact_email }}">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#mission">Mission & Vision</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul>
+                    {% for service in services %}
+                        <li><a href="#">{{ service.name }}</a></li>
+                    {% empty %}
+                        <li>No services available</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            
+            <div class="footer-section">
+                <h4>Get In Touch</h4>
+                <div class="footer-contact">
+                    <a href="mailto:{{ site_settings.email }}">{{ site_settings.email }}</a>
+                    <a href="tel:{{ site_settings.phone }}">{{ site_settings.phone }}</a>
+                    <span>{{ site_settings.address }}</span>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="footer-copyright">
+                <span>© <span id="currentYear"></span> Careerguide.academy.</span>
+            </div>
+            <div class="footer-links">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#refund">Refund Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>

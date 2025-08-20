@@ -1,0 +1,35 @@
+{% load static %}
+<nav class="custom-navbar">
+    <div class="container">
+        <div class="nav-content">
+            <a href="{% url 'core:home' %}" class="nav-brand">
+                <img src="{% static 'images/logo.png' %}" alt="Careerguide.academy Logo" class="img-fluid logo">
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="nav-links">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#mission" class="nav-link">Mission & Vision</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#blog" class="nav-link">Blog</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav" id="mobileNav">
+            <a href="#home" class="mobile-nav-link">Home</a>
+            <a href="#mission" class="mobile-nav-link">Mission & Vision</a>
+            <a href="#services" class="mobile-nav-link">Services</a>
+            <a href="#blog" class="mobile-nav-link">Blog</a>
+            <a href="#contact" class="mobile-nav-link">Contact</a>
+        </div>
+    </div>
+</nav>

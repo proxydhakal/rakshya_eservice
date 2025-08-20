@@ -1,0 +1,395 @@
+{% extends "partials/base.html" %} 
+{% load static %} 
+{% block navbar %} 
+{% include "partials/navbar.html" %} 
+{% endblock navbar %}  
+{% block main %}
+<!-- Home Section -->
+<section id="home" class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title animate-fade-in-up">
+                    Transform Your
+                    <span class="hero-subtitle">Future Today</span>
+                </h1>
+                <p class="hero-description animate-fade-in-up delay-200">
+                    Professional services to elevate your academic and career journey. 
+                    From university admissions to cybersecurity training, I'm here to guide your success.
+                </p>
+                <div class="hero-buttons animate-fade-in-up delay-300">
+                    <a href="#services" class="btn btn-primary">
+                        Explore Services
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <a href="#contact" class="btn btn-outline" style="color:#fff !important;">Get In Touch</a>
+                </div>
+            </div>
+            
+            <div class="hero-image animate-fade-in-right delay-400">
+                <div class="avatar-container">
+                    <div class="avatar">
+                        <img src="{% static 'images/rakshya.jpg' %}" alt="Professional Avatar" width="400" height="400">
+                    </div>
+                    <div class="avatar-badge">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4"/>
+                            <circle cx="12" cy="12" r="9"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section">
+    <div class="container">
+        <div class="section-content text-center">
+            <h2 class="section-title animate-fade-in-up">About Me</h2>
+            <p class="section-description animate-fade-in-up delay-200">
+                {{ about.description|safe }}
+            </p>
+            <div class="row justify-content-center">
+                {% for feature in about_features %}
+                    <div class="col-md-4 mb-4">
+                        <div class="stat-card animate-fade-in-up delay-{{ forloop.counter|add:2 }}00">
+                            <div class="stat-icon">
+                                {{ feature.icon|safe }}
+                            </div>
+                            <h3>{{ feature.title }}</h3>
+                            <p>{{ feature.description }}</p>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-muted">No features added yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- Mission & Vision Section -->
+<section id="mission" class="mission-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title animate-fade-in-up">Mission & Vision</h2>
+            <p class="section-description animate-fade-in-up delay-200">
+                Empowering individuals to achieve their academic and professional dreams through 
+                personalized guidance and expert knowledge.
+            </p>
+        </div>
+
+        <div class="mission-content">
+            <div class="mission-item animate-fade-in-left">
+                <div class="mission-header">
+                    <div class="mission-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/>
+                        </svg>
+                    </div>
+                    <h3>Our Mission</h3>
+                </div>
+                <p>{{ mission.description|safe }}</p>
+
+                <!-- Mission features list -->
+                {% if mission_features %}
+                <ul class="mission-list">
+                    {% for feature in mission_features %}
+                        <li>{{ feature.mission_feature }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+
+            <div class="mission-item animate-fade-in-right">
+                <div class="mission-header">
+                    <div class="mission-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </div>
+                    <h3>Our Vision</h3>
+                </div>
+                <!-- Vision description from DB -->
+                <p>{{ vision.description|safe }}</p>
+
+                <!-- Vision features list -->
+                {% if vision_features %}
+                <ul class="mission-list">
+                    {% for feature in vision_features %}
+                        <li>{{ feature.vision_feature }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="services-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title animate-fade-in-up">Professional Services</h2>
+            <p class="section-description animate-fade-in-up delay-200">
+                Tailored solutions to help you achieve your academic and professional goals. 
+                Each service is designed with your success in mind.
+            </p>
+        </div>
+
+        <div class="services-grid">
+            {% for service in services %}
+                <div class="service-card animate-fade-in-up delay-{{ forloop.counter|add:"2" }}00">
+                    <div class="service-icon">
+                        {% if service.svg_icon %}
+                            {{ service.svg_icon|safe }}
+                        {% else %}
+                            <!-- Default SVG if no icon is set -->
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                            </svg>
+                        {% endif %}
+                    </div>
+
+                    <h3>{{ service.name }}</h3>
+                    <div class="service-price">
+                        {% if service.price > 0 %}${{ service.price }} USD{% else %}Contact for Pricing{% endif %}
+                    </div>
+                    <p class="service-description">{{ service.description }}</p>
+                    
+                    <ul class="service-features">
+                        {% for feature in service.features.all %}
+                            <li>{{ feature.text }}</li>
+                        {% endfor %}
+                    </ul>
+
+                    <div class="service-buttons">
+                        <button class="btn btn-primary" onclick="showBookingForm('{{ service.id }}')">Book Now</button>
+                        <button class="btn btn-outline">Learn More</button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+
+<!-- Blog Section -->
+<section id="blog" class="blog-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title animate-fade-in-up">Success Stories & Insights</h2>
+            <p class="section-description animate-fade-in-up delay-200">
+                Discover practical tips, success stories, and expert insights to help you achieve 
+                your academic and professional goals.
+            </p>
+        </div>
+
+        <div class="blog-section container py-5">
+            <div class="row">
+                {% for blog in latest_blogs %}
+                <div class="col-md-4 mb-4">
+                    <article class="blog-card animate-fade-in-up delay-{{ forloop.counter0|add:"3" }}00">
+                        <div class="blog-image">
+                            {% if blog.cover_image %}
+                                <img src="{{ blog.cover_image.url }}" alt="{{ blog.title }}">
+                            {% else %}
+                                <img src="https://via.placeholder.com/500x300?text=No+Image" alt="{{ blog.title }}">
+                            {% endif %}
+
+                            {% if blog.category %}
+                                <div class="blog-category">{{ blog.category.name }}</div>
+                            {% else %}
+                                <div class="blog-category">Uncategorized</div>
+                            {% endif %}
+                        </div>
+                        <div class="blog-content">
+                            <h3>{{ blog.title }}</h3>
+                            <p>{{ blog.content|truncatechars:150|safe }}</p>
+                            <div class="blog-meta">
+                                <span>{{ blog.created_at|date:"M d, Y" }}</span>
+                                <span>{{ blog.content|wordcount|divisibleby:200|yesno:"1 min read,5 min read" }}</span>
+                            </div>
+                            <a href="{% url 'blog:blog_detail' slug=blog.slug %}" class="blog-read-more">Read More →</a>
+                        </div>
+                    </article>
+                </div>
+                {% empty %}
+                    <p>No blogs found.</p>
+                {% endfor %}
+            </div>
+
+            <!-- View More Button -->
+            <div class="text-center mt-4">
+                <a href="{% url 'blog:blog_list' %}" class="btn btn-primary btn-lg">View More Blogs</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Contact Section -->
+<section id="contact" class="contact-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title animate-fade-in-up">Get In Touch</h2>
+            <p class="section-description animate-fade-in-up delay-200">
+                Ready to take the next step in your journey? I'd love to hear from you. 
+                Send me a message and let's discuss how I can help you achieve your goals.
+            </p>
+        </div>
+
+        <div class="contact-content">
+            <!-- Left Column -->
+            <div class="contact-info animate-fade-in-left">
+                <h3>Contact Information</h3>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <!-- Email Icon -->
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4>Email</h4>
+                        <a href="mailto:{{ site_settings.email }}">{{ site_settings.email }}</a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <!-- Phone Icon -->
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4>Phone</h4>
+                        <a href="tel:{{ site_settings.phone }}">{{ site_settings.phone }}</a>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <!-- Location Icon -->
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4>Location</h4>
+                        <span>{{ site_settings.address }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <form class="contact-form animate-fade-in-right" id="contactForm" method="POST">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="service">Select Service *</label>
+                    <select id="service" name="service" required>
+                        <option value="" disabled selected>-- Choose a service --</option>
+                        {% for service in services %}
+                            <option value="{{ service.id }}">{{ service.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Your Message *</label>
+                    <textarea id="message" name="message" rows="6" required placeholder="Tell me about your goals and how I can help you..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    Send Message
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"/>
+                        <polygon points="22,2 15,22 11,13 2,9 22,2"/>
+                    </svg>
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+</section>
+<div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="bookingModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document"> <!-- centers vertically -->
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="bookingModalLabel">Book Appointment</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeBookingModal()">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form id="bookingForm" method="POST">
+            {% csrf_token %}
+            <div class="modal-body">
+            <div class="form-group">
+                <label for="bookingName">Full Name *</label>
+                <input type="text" class="form-control" id="bookingName" name="full_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="bookingEmail">Email Address *</label>
+                <input type="email" class="form-control" id="bookingEmail" name="email" required>
+            </div>
+
+            <div class="form-row custom-form-row">
+                <div class="form-group">
+                    <label for="bookingDate">Preferred Date *</label>
+                    <input type="date" class="form-control" id="bookingDate" name="preferred_date" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookingTime">Preferred Time *</label>
+                    <input type="time" class="form-control" id="bookingTime" name="preferred_time" required>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="bookingNotes">Additional Notes</label>
+                <textarea class="form-control" id="bookingNotes" name="notes" rows="4" placeholder="Any specific questions or information you'd like to share?"></textarea>
+            </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeBookingModal()">Close</button>
+            <button type="submit" class="btn btn-primary">Book Appointment</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+{% endblock main %}
+{% block footer %} 
+{% include "partials/footer.html" %} 
+{% endblock footer %}
+{% block scripts %} 
+{% include "partials/scripts.html" %} 
+{% endblock scripts %}

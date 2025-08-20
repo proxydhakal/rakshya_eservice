@@ -1,0 +1,168 @@
+{% load static %}
+<script>
+    const year = new Date().getFullYear();
+    document.getElementById('currentYear').textContent = year;
+</script>
+
+<!-- Full page loading overlay -->
+<div id="formSpinner" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+    background: rgba(0,0,0,0.4); z-index:9999; text-align:center;">
+    <img src="{% static 'images/loading.gif' %}" alt="Loading..." 
+        style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:100px; height:100px;">
+</div>
+
+<script>
+$("#contactForm").submit(function(e){
+    e.preventDefault();
+    var $form = $(this);
+
+    // Show spinner overlay
+    $("#formSpinner").show();
+
+    // Clear previous errors
+    $form.find('.form-group').removeClass('has-error');
+    $form.find('.error-msg').remove();
+
+    $.ajax({
+        type: "POST",
+        url: "{% url 'submit_contact_form' %}",
+        data: $form.serialize(),
+        success: function(response){
+            // Hide spinner overlay
+            $("#formSpinner").hide();
+
+            if(response.success){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thank You!',
+                    text: response.message,
+                    confirmButtonColor: '#3085d6'
+                });
+                $form[0].reset();
+            } else {
+                if(response.errors){
+                    $.each(response.errors, function(field, msgs){
+                        let $input = $form.find('[name="'+field+'"]');
+                        $input.addClass('has-error');
+                        let errorText = msgs.join(', ');
+                        $input.after('<span class="error-msg" style="color:red;font-size:0.875rem;">'+errorText+'</span>');
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: response.message,
+                        confirmButtonColor: '#d33'
+                    });
+                }
+            }
+        },
+        error: function(){
+            $("#formSpinner").hide();
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'An error occurred. Please try again!',
+                confirmButtonColor: '#d33'
+            });
+        }
+    });
+});
+</script>
+<script>
+function showBookingForm(serviceId) {
+    const $form = $('#bookingForm');
+    $form[0].reset();
+    $form.find('.error-msg').remove();
+    $form.find('.has-error').removeClass('has-error');
+
+    $form.find('input[name="service"]').remove();
+    $form.append('<input type="hidden" name="service" value="'+serviceId+'">');
+
+    $('#bookingModal').modal('show');
+}
+
+function closeBookingModal() {
+    $('#bookingModal').modal('hide');
+}
+
+$("#bookingForm").submit(function(e){
+    e.preventDefault();
+    const $form = $(this);
+
+    // Clear previous errors
+    $form.find('.error-msg').remove();
+    $form.find('.has-error').removeClass('has-error');
+
+    // Show spinner
+    $("#formSpinner").show();
+
+    $.ajax({
+        type: "POST",
+        url: "{% url 'core:submit_booking' %}",
+        data: $form.serialize(),
+        headers: { "X-CSRFToken": csrftoken },
+        success: function(response){
+            // Hide spinner
+            $("#formSpinner").hide();
+
+            if(response.success){
+                closeBookingModal();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Booking Received!',
+                    text: response.message,
+                    confirmButtonColor: '#3085d6'
+                });
+                $form[0].reset();
+            } else {
+                if(response.errors){
+                    $.each(response.errors, function(field, msgs){
+                        const $input = $form.find('[name="'+field+'"]');
+                        $input.addClass('has-error');
+                        const errorText = msgs.join(', ');
+                        $input.after('<span class="error-msg" style="color:red;font-size:0.875rem;">'+errorText+'</span>');
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: response.message || 'Something went wrong!',
+                        confirmButtonColor: '#d33'
+                    });
+                }
+            }
+        },
+        error: function(){
+            // Hide spinner
+            $("#formSpinner").hide();
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'An unexpected error occurred. Please try again!',
+                confirmButtonColor: '#d33'
+            });
+        }
+    });
+});
+</script>
+
+
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+</script>

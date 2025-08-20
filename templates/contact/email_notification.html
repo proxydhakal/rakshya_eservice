@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>New Inquiry Received</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f7;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background-color: #ffffff;
+      max-width: 600px;
+      margin: 40px auto;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+    .header {
+      background-color: #2596be; /* Primary color */
+      color: #ffffff;
+      text-align: center;
+      padding: 20px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    .content {
+      padding: 20px;
+      color: #333333;
+    }
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #888888;
+      margin-top: 30px;
+    }
+    .details {
+      background-color: #f9f9f9;
+      padding: 15px;
+      margin-top: 20px;
+      border-left: 4px solid #2596be;
+    }
+    .note {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #666666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      New Inquiry Received
+    </div>
+    <div class="content">
+      <p>Dear Team,</p>
+      <p>You have received a new inquiry through <strong>Careerguide.academy</strong>:</p>
+
+      <div class="details">
+        <p><strong>Name:</strong> {{ inquiry.name }}</p>
+        <p><strong>Email:</strong> {{ inquiry.email }}</p>
+        <p><strong>Service:</strong> {% if inquiry.service %}{{ inquiry.service.name }}{% else %}N/A{% endif %}</p>
+        <p><strong>Message:</strong></p>
+        <p>{{ inquiry.message|linebreaks }}</p>
+      </div>
+
+      <p class="note">
+        This is an automated notification. Please respond to the inquiry as necessary.
+      </p>
+    </div>
+    <div class="footer">
+      &copy; {{ current_year }} Careerguide.academy. All rights reserved.
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+{% extends "partials/base.html" %}
+{% load static %}
+
+{% block navbar %}
+    {% include "partials/navbar.html" %}
+{% endblock navbar %}
+
+{% block main %}
+<section class="blog-detail-section p-5">
+    <div class="container">
+        <div class="row">
+            
+            <!-- Blog Content -->
+            <div class="col-lg-8">
+                <article class="blog-article card shadow-sm p-4">
+                    
+                    <!-- Cover Image -->
+                    {% if blog.cover_image %}
+                        <img src="{{ blog.cover_image.url }}" class="img-fluid rounded mb-4 w-100" alt="{{ blog.title }}">
+                    {% endif %}
+
+                    <!-- Title -->
+                    <h1 class="blog-title mb-3">{{ blog.title }}</h1>
+
+                    <!-- Meta Info -->
+                    <p class="text-muted mb-4">
+                        <small>
+                            📅 {{ blog.created_at|date:"M d, Y" }}
+                            {% if blog.author %} | ✍️ {{ blog.author.get_full_name|default:blog.author.username }} {% endif %}
+                        </small>
+                    </p>
+
+                    <!-- Content -->
+                    <div class="blog-content mb-4">
+                        {{ blog.content|safe }}
+                    </div>
+
+                    <!-- Category & Tags -->
+                    <div class="blog-meta mt-4">
+                        {% if blog.category %}
+                            <span class="badge bg-primary me-2">{{ blog.category.name }}</span>
+                        {% endif %}
+                        {% for tag in blog.tags.all %}
+                            <span class="badge bg-secondary">{{ tag.name }}</span>
+                        {% endfor %}
+                    </div>
+                </article>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <aside class="blog-sidebar">
+
+                    <!-- Search -->
+                    <div class="card mb-4 p-3">
+                        <form method="get" action="{% url 'blog:blog_list' %}" class="d-flex">
+                            <input type="text" name="q" class="form-control me-2" placeholder="Search blogs...">
+                            <button class="btn btn-primary">Search</button>
+                        </form>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="card mb-4 p-3">
+                        <h5 class="mb-3">Categories</h5>
+                        <ul class="list-group">
+                            {% for category in categories %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <a href="{% url 'blog:blog_list' %}?category={{ category.slug }}" class="text-decoration-none text-dark">{{ category.name }}</a>
+                                    <span class="badge bg-primary rounded-pill">{{ category.blog_count }}</span>
+                                </li>
+                            {% empty %}
+                                <li class="list-group-item">No categories found.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="card p-3">
+                        <h5 class="mb-3">Tags</h5>
+                        <div>
+                            {% for tag in tags %}
+                                <a href="{% url 'blog:blog_list' %}?tag={{ tag.slug }}" class="badge bg-light text-dark border me-1 mb-1">
+                                    {{ tag.name }}
+                                </a>
+                            {% empty %}
+                                <p>No tags found.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main %}
+
+{% block footer %}
+    {% include "partials/footer.html" %}
+{% endblock footer %}
+
+{% block scripts %}
+    {% include "partials/scripts.html" %}
+{% endblock scripts %}

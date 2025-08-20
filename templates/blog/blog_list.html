@@ -1,0 +1,149 @@
+{% extends "partials/base.html" %} 
+{% load static %} 
+
+{% block navbar %} 
+    {% include "partials/navbar.html" %} 
+{% endblock navbar %}  
+
+{% block main %}
+<section class="blog-list-section p-5">
+    <div class="container">
+
+        <!-- Header + Search -->
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-6">
+                <h2>Blog & Insights</h2>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <form method="get" class="d-flex blog-search">
+                    <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search blogs..." class="form-control me-0">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="row mb-4 blog-filters">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Filter by Category:</label>
+                <select id="categoryFilter" class="form-select">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                        <option value="{{ category.slug }}" {% if request.GET.category == category.slug %}selected{% endif %}>
+                            {{ category.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Filter by Tag:</label>
+                <select id="tagFilter" class="form-select">
+                    <option value="">All Tags</option>
+                    {% for tag in tags %}
+                        <option value="{{ tag.slug }}" {% if request.GET.tag == tag.slug %}selected{% endif %}>
+                            {{ tag.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+
+        <!-- Blog Grid -->
+        <div class="row g-4">
+            {% for blog in blogs %}
+                <div class="col-md-4">
+                    <div class="card h-100 blog-card">
+                        {% if blog.cover_image %}
+                            <img src="{{ blog.cover_image.url }}" class="card-img-top" alt="{{ blog.title }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/400x250?text=No+Image" class="card-img-top" alt="No Image">
+                        {% endif %}
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ blog.title }}</h5>
+                            <p class="card-text">{{ blog.content|truncatechars:150|safe }}</p>
+                            <p class="text-muted mb-2">
+                                <small>{{ blog.created_at|date:"M d, Y" }}</small>
+                            </p>
+                            {% if blog.category %}
+                                <span class="badge bg-primary">{{ blog.category.name }}</span>
+                            {% endif %}
+                            {% for tag in blog.tags.all %}
+                                <span class="badge bg-secondary">{{ tag.name }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="card-footer text-end">
+                            <a href="{% url 'blog:blog_detail' slug=blog.slug %}" class="btn btn-sm btn-outline-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12 text-center">
+                    <p>No blogs found matching your criteria.</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if blogs.has_other_pages %}
+        <nav class="mt-5">
+            <ul class="pagination justify-content-center">
+                {% if blogs.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ blogs.previous_page_number }}&q={{ request.GET.q }}&category={{ request.GET.category }}&tag={{ request.GET.tag }}">Previous</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                {% endif %}
+
+                {% for num in blogs.paginator.page_range %}
+                    {% if blogs.number == num %}
+                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                    {% elif num > blogs.number|add:-3 and num < blogs.number|add:3 %}
+                        <li class="page-item"><a class="page-link" href="?page={{ num }}&q={{ request.GET.q }}&category={{ request.GET.category }}&tag={{ request.GET.tag }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if blogs.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ blogs.next_page_number }}&q={{ request.GET.q }}&category={{ request.GET.category }}&tag={{ request.GET.tag }}">Next</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">Next</span></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Filter Script -->
+<script>
+    document.getElementById('categoryFilter').addEventListener('change', function(){
+        let category = this.value;
+        let tag = document.getElementById('tagFilter').value;
+        let search = "{{ request.GET.q|default:'' }}";
+        let url = "?";
+        if(search) url += "q=" + search + "&";
+        if(category) url += "category=" + category + "&";
+        if(tag) url += "tag=" + tag + "&";
+        window.location.href = url.slice(0,-1);
+    });
+
+    document.getElementById('tagFilter').addEventListener('change', function(){
+        let category = document.getElementById('categoryFilter').value;
+        let tag = this.value;
+        let search = "{{ request.GET.q|default:'' }}";
+        let url = "?";
+        if(search) url += "q=" + search + "&";
+        if(category) url += "category=" + category + "&";
+        if(tag) url += "tag=" + tag + "&";
+        window.location.href = url.slice(0,-1);
+    });
+</script>
+{% endblock main %}
+
+{% block footer %} 
+    {% include "partials/footer.html" %} 
+{% endblock footer %}
+
+{% block scripts %} 
+    {% include "partials/scripts.html" %} 
+{% endblock scripts %}

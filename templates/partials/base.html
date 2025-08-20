@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title|default:"Careerguide.Academy" }}</title>
+    <meta name="description" content="{{ meta_description }}">
+    <meta name="keywords" content="{{ meta_keywords }}">
+    <meta name="author" content="Rakshya eService">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description" content="{{ meta_description }}">
+    <meta property="og:type" content="website">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
+    <script src="{% static 'js/sweetalert.min.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/sweetalert2@11.js' %}"></script>
+
+
+</head>
+<body>
+    <!-- Navigation -->
+    {% block navbar %}{% endblock navbar %}
+
+
+    {% block main %}{% endblock main %}
+
+
+    <!-- Footer -->
+    {% block footer %}{% endblock footer %}
+    {% block scripts %}{% endblock scripts %}
+
+    <!-- Booking Modal -->
+
+</body>
+</html>

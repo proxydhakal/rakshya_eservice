@@ -1,0 +1,841 @@
+[
+{
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+        "action_time": "2025-08-18T07:46:21.746Z",
+        "user": 1,
+        "content_type": 7,
+        "object_id": "1",
+        "object_repr": "Cybersecurity",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+        "action_time": "2025-08-18T07:46:31.205Z",
+        "user": 1,
+        "content_type": 8,
+        "object_id": "1",
+        "object_repr": "Cybersecurity",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+        "action_time": "2025-08-18T07:46:38.314Z",
+        "user": 1,
+        "content_type": 8,
+        "object_id": "2",
+        "object_repr": "Education",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+        "action_time": "2025-08-18T07:46:44.535Z",
+        "user": 1,
+        "content_type": 8,
+        "object_id": "3",
+        "object_repr": "Information",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+        "action_time": "2025-08-18T07:48:22.377Z",
+        "user": 1,
+        "content_type": 9,
+        "object_id": "1",
+        "object_repr": "Cybersecurity Fundamentals for Small Businesses",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+        "action_time": "2025-08-18T09:03:45.861Z",
+        "user": 1,
+        "content_type": 7,
+        "object_id": "2",
+        "object_repr": "Counseling",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+        "action_time": "2025-08-18T09:03:54.277Z",
+        "user": 1,
+        "content_type": 8,
+        "object_id": "4",
+        "object_repr": "Counseling",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+        "action_time": "2025-08-18T09:06:07.290Z",
+        "user": 1,
+        "content_type": 9,
+        "object_id": "2",
+        "object_repr": "Unlocking Your Career Potential",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 9,
+    "fields": {
+        "action_time": "2025-08-18T09:13:09.594Z",
+        "user": 1,
+        "content_type": 9,
+        "object_id": "2",
+        "object_repr": "Unlocking Your Career Potential",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Content\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 10,
+    "fields": {
+        "action_time": "2025-08-18T09:59:24.255Z",
+        "user": 1,
+        "content_type": 10,
+        "object_id": "1",
+        "object_repr": "Site Settings",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 11,
+    "fields": {
+        "action_time": "2025-08-18T10:18:22.455Z",
+        "user": 1,
+        "content_type": 10,
+        "object_id": "1",
+        "object_repr": "Site Settings",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 12,
+    "fields": {
+        "action_time": "2025-08-18T10:55:34.239Z",
+        "user": 1,
+        "content_type": 13,
+        "object_id": "1",
+        "object_repr": "University Admission Help",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"service feature\", \"object\": \"University Admission Help - University selection guidance\"}}, {\"added\": {\"name\": \"service feature\", \"object\": \"University Admission Help - Application strategy development\"}}, {\"added\": {\"name\": \"service feature\", \"object\": \"University Admission Help - Essay writing and review\"}}, {\"added\": {\"name\": \"service feature\", \"object\": \"University Admission Help - Interview preparation\"}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 13,
+    "fields": {
+        "action_time": "2025-08-18T10:56:13.071Z",
+        "user": 1,
+        "content_type": 13,
+        "object_id": "1",
+        "object_repr": "University Admission Help",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+        "action_time": "2025-08-18T10:57:27.415Z",
+        "user": 1,
+        "content_type": 13,
+        "object_id": "2",
+        "object_repr": "Resume Review",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"service feature\", \"object\": \"Resume Review - Comprehensive resume analysis\"}}, {\"added\": {\"name\": \"service feature\", \"object\": \"Resume Review - ATS optimization\"}}, {\"added\": {\"name\": \"service feature\", \"object\": \"Resume Review - Industry-specific formatting\"}}, {\"added\": {\"name\": \"service feature\", \"object\": \"Resume Review - Content enhancement\"}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+        "action_time": "2025-08-18T10:58:44.072Z",
+        "user": 1,
+        "content_type": 13,
+        "object_id": "3",
+        "object_repr": "Cybersecurity Training",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"service feature\", \"object\": \"Cybersecurity Training - Threat assessment and analysis\"}}, {\"added\": {\"name\": \"service feature\", \"object\": \"Cybersecurity Training - Security best practices training\"}}, {\"added\": {\"name\": \"service feature\", \"object\": \"Cybersecurity Training - Incident response planning\"}}, {\"added\": {\"name\": \"service feature\", \"object\": \"Cybersecurity Training - Custom training programs\"}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+        "action_time": "2025-08-19T05:24:27.763Z",
+        "user": 1,
+        "content_type": 15,
+        "object_id": "1",
+        "object_repr": "About Page Content",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"about feature\", \"object\": \"5+ Years\"}}, {\"added\": {\"name\": \"about feature\", \"object\": \"200+\"}}, {\"added\": {\"name\": \"about feature\", \"object\": \"100%\"}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 17,
+    "fields": {
+        "action_time": "2025-08-19T05:38:57.130Z",
+        "user": 1,
+        "content_type": 15,
+        "object_id": "1",
+        "object_repr": "About Page Content",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Content\"]}}, {\"changed\": {\"name\": \"about feature\", \"object\": \"5+ Years\", \"fields\": [\"Icon\"]}}, {\"changed\": {\"name\": \"about feature\", \"object\": \"200+\", \"fields\": [\"Icon\"]}}, {\"changed\": {\"name\": \"about feature\", \"object\": \"100%\", \"fields\": [\"Icon\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 18,
+    "fields": {
+        "action_time": "2025-08-19T05:46:39.630Z",
+        "user": 1,
+        "content_type": 18,
+        "object_id": "1",
+        "object_repr": "Mission Page Content",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"mission feature\", \"object\": \"Personalized approach to each client's unique needs\"}}, {\"added\": {\"name\": \"mission feature\", \"object\": \"Evidence-based strategies for success\"}}, {\"added\": {\"name\": \"mission feature\", \"object\": \"Continuous support throughout the journey\"}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 19,
+    "fields": {
+        "action_time": "2025-08-19T05:47:25.480Z",
+        "user": 1,
+        "content_type": 19,
+        "object_id": "1",
+        "object_repr": "Vision Page Content",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}, {\"added\": {\"name\": \"vision feature\", \"object\": \"Global accessibility to quality education consulting\"}}, {\"added\": {\"name\": \"vision feature\", \"object\": \"Innovation in educational technology and methods\"}}, {\"added\": {\"name\": \"vision feature\", \"object\": \"Building a community of successful achievers\"}}]"
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$TQD9U4EyYjzBxHEMTZbumh$OIwq03nvvQXSlLtpJKM8p/S2IHat0GITTK3a/xZEqO8=",
+        "last_login": "2025-08-18T14:31:42.487Z",
+        "is_superuser": true,
+        "username": "proxydhakal",
+        "first_name": "",
+        "last_name": "",
+        "email": "proxydhakal@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-08-18T07:28:36.410Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "aesshk99yehgmf8wyslg58ijrd8deq6l",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAQBe_iGln-Ze1Q0nMGa9dr4wBypDipEHeHSCmgfTPzXiLitta49bzEicVZaHH63QjTI7cd8B3bbZZpbusykdwVedAurzPn5-Vw_w4q9vqtc7K-FNYAxdigFAAaV0aHkAhJeQyOEgXLTpsAwVszWM1lMCMSOFLi_QHlvzeZ:1unuIg:eN5oB0KBPIFsmJZsR0IVOeITNI35zH2b6vV0VWst_3s",
+        "expire_date": "2025-09-01T07:29:02.986Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "onxcdt3cjbcw0mm16z2twr5j8sfhfsu7",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAQBe_iGln-Ze1Q0nMGa9dr4wBypDipEHeHSCmgfTPzXiLitta49bzEicVZaHH63QjTI7cd8B3bbZZpbusykdwVedAurzPn5-Vw_w4q9vqtc7K-FNYAxdigFAAaV0aHkAhJeQyOEgXLTpsAwVszWM1lMCMSOFLi_QHlvzeZ:1uo0ti:wOngjvq3gHEhxdDDhfdjyhscXN6uTMUgxkBqXm1xAAU",
+        "expire_date": "2025-09-01T14:31:42.535Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "pdetyn7trre4xxskau04thuxno9aguty",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAQBe_iGln-Ze1Q0nMGa9dr4wBypDipEHeHSCmgfTPzXiLitta49bzEicVZaHH63QjTI7cd8B3bbZZpbusykdwVedAurzPn5-Vw_w4q9vqtc7K-FNYAxdigFAAaV0aHkAhJeQyOEgXLTpsAwVszWM1lMCMSOFLi_QHlvzeZ:1uny3u:ag8aC-1MzM4StZYYgHLFJCOfxWxhxBEWW6SKfEW7th4",
+        "expire_date": "2025-09-01T11:30:02.504Z"
+    }
+},
+{
+    "model": "core.service",
+    "pk": 1,
+    "fields": {
+        "name": "University Admission Help",
+        "description": "Complete guidance through the university application process, from choosing the right schools to crafting compelling essays.",
+        "price": "40.00",
+        "svg_icon": "<svg width=\"40\" height=\"40\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\r\n                            <path d=\"M22 10v6M2 10l10-5 10 5-10 5z\"/>\r\n                            <path d=\"M6 12v5c3 3 9 3 12 0v-5\"/>\r\n                        </svg>",
+        "created_at": "2025-08-18T10:55:34.232Z"
+    }
+},
+{
+    "model": "core.service",
+    "pk": 2,
+    "fields": {
+        "name": "Resume Review",
+        "description": "Professional resume review and optimization to help you stand out to employers and land your dream job.",
+        "price": "50.00",
+        "svg_icon": "<svg width=\"40\" height=\"40\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\r\n                            <path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/>\r\n                            <polyline points=\"14,2 14,8 20,8\"/>\r\n                            <line x1=\"16\" y1=\"13\" x2=\"8\" y2=\"13\"/>\r\n                            <line x1=\"16\" y1=\"17\" x2=\"8\" y2=\"17\"/>\r\n                            <polyline points=\"10,9 9,9 8,9\"/>\r\n                        </svg>",
+        "created_at": "2025-08-18T10:57:27.415Z"
+    }
+},
+{
+    "model": "core.service",
+    "pk": 3,
+    "fields": {
+        "name": "Cybersecurity Training",
+        "description": "Comprehensive cybersecurity training programs for individuals and organizations to protect against modern threats.",
+        "price": "60.00",
+        "svg_icon": "<svg width=\"40\" height=\"40\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\">\r\n                            <path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"/>\r\n                        </svg>",
+        "created_at": "2025-08-18T10:58:44.067Z"
+    }
+},
+{
+    "model": "core.booking",
+    "pk": 1,
+    "fields": {
+        "service": 2,
+        "full_name": "Shekhar Dhakal",
+        "email": "shekhardhakal2015@gmail.com",
+        "preferred_date": "2025-08-18",
+        "preferred_time": "18:09:00",
+        "notes": "Test",
+        "created_at": "2025-08-18T12:24:47.011Z",
+        "status": "pending"
+    }
+},
+{
+    "model": "core.booking",
+    "pk": 2,
+    "fields": {
+        "service": 2,
+        "full_name": "Shekhar Dhakal",
+        "email": "proxydhakal@gmail.com",
+        "preferred_date": "2025-08-18",
+        "preferred_time": "18:25:00",
+        "notes": "Test",
+        "created_at": "2025-08-18T12:41:10.791Z",
+        "status": "pending"
+    }
+},
+{
+    "model": "core.booking",
+    "pk": 3,
+    "fields": {
+        "service": 2,
+        "full_name": "Shekhar Dhakal",
+        "email": "proxydhakal@gmail.com",
+        "preferred_date": "2025-08-18",
+        "preferred_time": "19:24:00",
+        "notes": "Test",
+        "created_at": "2025-08-18T13:39:28.185Z",
+        "status": "pending"
+    }
+},
+{
+    "model": "core.booking",
+    "pk": 4,
+    "fields": {
+        "service": 2,
+        "full_name": "Shekhar Dhakal",
+        "email": "proxydhakal@gmail.com",
+        "preferred_date": "2025-08-19",
+        "preferred_time": "19:27:00",
+        "notes": "Test",
+        "created_at": "2025-08-18T13:42:34.051Z",
+        "status": "pending"
+    }
+},
+{
+    "model": "core.booking",
+    "pk": 5,
+    "fields": {
+        "service": 2,
+        "full_name": "Shekhar Dhakal",
+        "email": "shekhardhakal2015@gmail.com",
+        "preferred_date": "2025-08-18",
+        "preferred_time": "21:19:00",
+        "notes": "TEst",
+        "created_at": "2025-08-18T15:35:08.217Z",
+        "status": "pending"
+    }
+},
+{
+    "model": "core.servicefeature",
+    "pk": 1,
+    "fields": {
+        "service": 1,
+        "text": "University selection guidance"
+    }
+},
+{
+    "model": "core.servicefeature",
+    "pk": 2,
+    "fields": {
+        "service": 1,
+        "text": "Application strategy development"
+    }
+},
+{
+    "model": "core.servicefeature",
+    "pk": 3,
+    "fields": {
+        "service": 1,
+        "text": "Essay writing and review"
+    }
+},
+{
+    "model": "core.servicefeature",
+    "pk": 4,
+    "fields": {
+        "service": 1,
+        "text": "Interview preparation"
+    }
+},
+{
+    "model": "core.servicefeature",
+    "pk": 5,
+    "fields": {
+        "service": 2,
+        "text": "Comprehensive resume analysis"
+    }
+},
+{
+    "model": "core.servicefeature",
+    "pk": 6,
+    "fields": {
+        "service": 2,
+        "text": "ATS optimization"
+    }
+},
+{
+    "model": "core.servicefeature",
+    "pk": 7,
+    "fields": {
+        "service": 2,
+        "text": "Industry-specific formatting"
+    }
+},
+{
+    "model": "core.servicefeature",
+    "pk": 8,
+    "fields": {
+        "service": 2,
+        "text": "Content enhancement"
+    }
+},
+{
+    "model": "core.servicefeature",
+    "pk": 9,
+    "fields": {
+        "service": 3,
+        "text": "Threat assessment and analysis"
+    }
+},
+{
+    "model": "core.servicefeature",
+    "pk": 10,
+    "fields": {
+        "service": 3,
+        "text": "Security best practices training"
+    }
+},
+{
+    "model": "core.servicefeature",
+    "pk": 11,
+    "fields": {
+        "service": 3,
+        "text": "Incident response planning"
+    }
+},
+{
+    "model": "core.servicefeature",
+    "pk": 12,
+    "fields": {
+        "service": 3,
+        "text": "Custom training programs"
+    }
+},
+{
+    "model": "settings.sitesettings",
+    "pk": 1,
+    "fields": {
+        "site_title": "Careerguide.Academy",
+        "meta_description": "CareerGuide.Academy offers expert career counseling, skill development courses, and personalized mentorship to help students and professionals achieve their career goals. Learn, grow, and build your future with guided career pathways.",
+        "meta_keywords": "career guide academy, career counseling, career guidance, skill development, online courses, professional training, career mentorship, career growth, student career guidance, job readiness, career development academy, career success, education consulting",
+        "phone": "+977 984 0177381",
+        "email": "rakshyaneupane@gmail.com",
+        "address": "Available Worldwide",
+        "linkedin_url": "https://www.linkedin.com/",
+        "twitter_url": "https://www.x.com/",
+        "facebook_url": "https://www.facebook.com/",
+        "instagram_url": "https://www.instagram.com/"
+    }
+},
+{
+    "model": "blog.blogcategory",
+    "pk": 1,
+    "fields": {
+        "name": "Cybersecurity",
+        "slug": "cybersecurity"
+    }
+},
+{
+    "model": "blog.blogcategory",
+    "pk": 2,
+    "fields": {
+        "name": "Counseling",
+        "slug": "counseling"
+    }
+},
+{
+    "model": "blog.tag",
+    "pk": 1,
+    "fields": {
+        "name": "Cybersecurity",
+        "slug": "cybersecurity"
+    }
+},
+{
+    "model": "blog.tag",
+    "pk": 2,
+    "fields": {
+        "name": "Education",
+        "slug": "education"
+    }
+},
+{
+    "model": "blog.tag",
+    "pk": 3,
+    "fields": {
+        "name": "Information",
+        "slug": "information"
+    }
+},
+{
+    "model": "blog.tag",
+    "pk": 4,
+    "fields": {
+        "name": "Counseling",
+        "slug": "counseling"
+    }
+},
+{
+    "model": "blog.blog",
+    "pk": 1,
+    "fields": {
+        "title": "Cybersecurity Fundamentals for Small Businesses",
+        "category": 1,
+        "content": "<p><span style=\"color:hsl(0, 0%, 0%);\">In today’s digital world, small businesses are increasingly vulnerable to cyber attacks. From phishing scams to ransomware, threats can disrupt operations and compromise sensitive data. Implementing basic cybersecurity practices is essential for protecting your business.</span></p><p><span style=\"color:hsl(0, 0%, 0%);\"><strong>1. Use Strong Passwords:</strong> Ensure all accounts have unique, complex passwords. Consider a password manager for easy management.</span></p><p><span style=\"color:hsl(0, 0%, 0%);\"><strong>2. Enable Two-Factor Authentication (2FA):</strong> Adding a second verification step greatly reduces the risk of unauthorized access.</span></p><p><span style=\"color:hsl(0, 0%, 0%);\"><strong>3. Regular Software Updates:</strong> Keep operating systems, applications, and antivirus software up to date to patch known vulnerabilities.</span></p><p><span style=\"color:hsl(0, 0%, 0%);\"><strong>4. Educate Your Employees:</strong> Human error is often the weakest link. Conduct regular training on phishing and safe internet practices.</span></p><p><span style=\"color:hsl(0, 0%, 0%);\"><strong>5. Backup Your Data:</strong> Maintain regular backups, preferably offsite or in the cloud, to recover quickly in case of a cyber incident.</span></p><p><span style=\"color:hsl(0, 0%, 0%);\"><strong>6. Network Security:</strong> Use firewalls and secure Wi-Fi networks to prevent unauthorized access.</span></p><p><span style=\"color:hsl(0, 0%, 0%);\">By implementing these simple steps, small businesses can greatly reduce their exposure to cyber threats and protect their valuable data.</span></p>",
+        "cover_image": "blog_covers/Cybersecurity-solutions.jpeg",
+        "slug": "cybersecurity-fundamentals-for-small-businesses",
+        "count": 0,
+        "created_at": "2025-08-18T07:48:22.362Z",
+        "deleted_at": null,
+        "user": 1,
+        "tags": []
+    }
+},
+{
+    "model": "blog.blog",
+    "pk": 2,
+    "fields": {
+        "title": "Unlocking Your Career Potential",
+        "category": 2,
+        "content": "<p><span style=\"color:hsl(0,0%,0%);\">Your resume is more than just a list of your experiences and skills—it’s your first impression to potential employers. Whether you are a fresh graduate stepping into the professional world or an experienced professional seeking new opportunities, a well-crafted resume can significantly impact your career trajectory. That’s where <strong>resume review</strong> comes into play.</span></p><h2><span style=\"color:hsl(0,0%,0%);\">What is Resume Review?</span></h2><p><span style=\"color:hsl(0,0%,0%);\">Resume review is a systematic evaluation of your resume by either a professional career coach, recruiter, or an automated tool. The goal is to ensure your resume effectively communicates your skills, experience, and potential value to an employer. A thorough review examines everything from formatting and language to keyword optimization and relevance to the job role.</span></p><h2><span style=\"color:hsl(0,0%,0%);\">Why Resume Review Matters</span></h2><ol><li><span style=\"color:hsl(0,0%,0%);\"><strong>First Impressions Count</strong></span><br><span style=\"color:hsl(0,0%,0%);\">Recruiters spend an average of 6 seconds scanning a resume. A poorly formatted or cluttered resume can lead to rejection before you even get a chance to showcase your abilities. Resume review helps you present your information clearly and professionally.</span></li><li><span style=\"color:hsl(0,0%,0%);\"><strong>Highlighting Strengths</strong></span><br><span style=\"color:hsl(0,0%,0%);\">Many candidates underestimate their achievements or fail to convey their value effectively. A review can help identify key accomplishments and ensure they stand out to potential employers.</span></li><li><span style=\"color:hsl(0,0%,0%);\"><strong>Avoiding Common Mistakes</strong></span><br><span style=\"color:hsl(0,0%,0%);\">Typos, inconsistent formatting, or missing information can create a negative impression. Resume reviews help eliminate these errors, enhancing credibility and professionalism.</span></li><li><span style=\"color:hsl(0,0%,0%);\"><strong>Tailoring for Each Job</strong></span><br><span style=\"color:hsl(0,0%,0%);\">Different jobs require different skills and experiences. A professional review can guide you to customize your resume for specific roles, increasing your chances of landing interviews.</span></li><li><span style=\"color:hsl(0,0%,0%);\"><strong>Optimizing for Applicant Tracking Systems (ATS)</strong></span><br><span style=\"color:hsl(0,0%,0%);\">Many companies use ATS software to filter resumes before they reach a human recruiter. Resume reviews ensure that your resume contains the right keywords and structure to pass these automated screenings.</span></li></ol><h2><span style=\"color:hsl(0,0%,0%);\">Tips for a Successful Resume Review</span></h2><ul><li><span style=\"color:hsl(0,0%,0%);\"><strong>Be Honest and Clear:</strong> Make sure your resume accurately reflects your skills and experiences.</span></li><li><span style=\"color:hsl(0,0%,0%);\"><strong>Focus on Achievements:</strong> Use metrics and results to quantify your accomplishments.</span></li><li><span style=\"color:hsl(0,0%,0%);\"><strong>Keep It Concise:</strong> Limit your resume to 1–2 pages, highlighting relevant information.</span></li><li><span style=\"color:hsl(0,0%,0%);\"><strong>Use Action Verbs:</strong> Begin bullet points with strong action verbs like “Led,” “Developed,” or “Implemented.”</span></li><li><span style=\"color:hsl(0,0%,0%);\"><strong>Seek Multiple Perspectives:</strong> Have peers, mentors, or professional services review your resume to catch different perspectives and errors.</span></li></ul><h2><span style=\"color:hsl(0,0%,0%);\">Conclusion</span></h2><p><span style=\"color:hsl(0,0%,0%);\">A resume is your personal marketing tool, and a review is essential to ensure it makes the right impact. By investing time in a <strong>resume review</strong>, you can increase your chances of landing interviews, standing out in a competitive job market, and ultimately advancing your career. Don’t underestimate the power of a polished, well-crafted resume—it could be the key to your next opportunity.</span></p><hr>",
+        "cover_image": "blog_covers/what-is-career-counselling.png",
+        "slug": "unlocking-your-career-potential",
+        "count": 0,
+        "created_at": "2025-08-18T09:06:07.277Z",
+        "deleted_at": null,
+        "user": 1,
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "contact.contactinquiry",
+    "pk": 1,
+    "fields": {
+        "name": "Shekhar Dhakal",
+        "email": "shekhardhakal2015@gmail.com",
+        "service": 1,
+        "message": "Hello This is Test Message",
+        "created_at": "2025-08-18T11:21:18.469Z"
+    }
+},
+{
+    "model": "contact.contactinquiry",
+    "pk": 2,
+    "fields": {
+        "name": "Shekhar Dhakal",
+        "email": "shekhardhakal2015@gmail.com",
+        "service": 2,
+        "message": "Hello This is Test Message",
+        "created_at": "2025-08-18T11:21:42.090Z"
+    }
+},
+{
+    "model": "contact.contactinquiry",
+    "pk": 3,
+    "fields": {
+        "name": "Shekhar Dhakal",
+        "email": "shekhardhakal2015@gmail.com",
+        "service": 2,
+        "message": "Hello This is Test Message",
+        "created_at": "2025-08-18T11:21:49.609Z"
+    }
+},
+{
+    "model": "contact.contactinquiry",
+    "pk": 4,
+    "fields": {
+        "name": "Shekhar Dhakal",
+        "email": "shekhardhakal2015@gmail.com",
+        "service": 1,
+        "message": "Test",
+        "created_at": "2025-08-18T11:24:23.665Z"
+    }
+},
+{
+    "model": "contact.contactinquiry",
+    "pk": 5,
+    "fields": {
+        "name": "Shekhar Dhakal",
+        "email": "shekhardhakal2015@gmail.com",
+        "service": 3,
+        "message": "Test",
+        "created_at": "2025-08-18T11:26:24.348Z"
+    }
+},
+{
+    "model": "contact.contactinquiry",
+    "pk": 6,
+    "fields": {
+        "name": "gfw3454678",
+        "email": "hirefe5454@ingitel.com",
+        "service": 2,
+        "message": "3rtyuijnbvcdsf",
+        "created_at": "2025-08-18T11:26:47.230Z"
+    }
+},
+{
+    "model": "contact.contactinquiry",
+    "pk": 7,
+    "fields": {
+        "name": "Hello",
+        "email": "shekhardhakal2015@gmail.com",
+        "service": 2,
+        "message": "sdfghjgfdfdfg",
+        "created_at": "2025-08-18T11:27:17.547Z"
+    }
+},
+{
+    "model": "contact.contactinquiry",
+    "pk": 8,
+    "fields": {
+        "name": "Shekhar Dhakal",
+        "email": "shekhardhakal2015@gmail.com",
+        "service": 2,
+        "message": "Test",
+        "created_at": "2025-08-18T11:38:06.560Z"
+    }
+},
+{
+    "model": "contact.contactinquiry",
+    "pk": 9,
+    "fields": {
+        "name": "Shekhar Dhakal",
+        "email": "shekhardhakal2015@gmail.com",
+        "service": 3,
+        "message": "Test",
+        "created_at": "2025-08-18T11:41:41.652Z"
+    }
+},
+{
+    "model": "contact.contactinquiry",
+    "pk": 10,
+    "fields": {
+        "name": "Shekhar Dhakal",
+        "email": "proxydhakal@gmail.com",
+        "service": 2,
+        "message": "Test",
+        "created_at": "2025-08-18T11:45:42.022Z"
+    }
+},
+{
+    "model": "contact.contactinquiry",
+    "pk": 11,
+    "fields": {
+        "name": "Shekhar Dhakal",
+        "email": "proxydhakal@gmail.com",
+        "service": 3,
+        "message": "Test",
+        "created_at": "2025-08-18T11:54:51.925Z"
+    }
+},
+{
+    "model": "contact.contactinquiry",
+    "pk": 12,
+    "fields": {
+        "name": "Shekhar Dhakal",
+        "email": "proxydhakal@gmail.com",
+        "service": 1,
+        "message": "Test",
+        "created_at": "2025-08-18T11:58:16.474Z"
+    }
+},
+{
+    "model": "contact.contactinquiry",
+    "pk": 13,
+    "fields": {
+        "name": "Shekhar Dhakal",
+        "email": "shekhardhakal2015@gmail.com",
+        "service": 1,
+        "message": "Test",
+        "created_at": "2025-08-18T11:58:50.927Z"
+    }
+},
+{
+    "model": "contact.contactinquiry",
+    "pk": 14,
+    "fields": {
+        "name": "Shekhar Dhakal",
+        "email": "shekhardhakal2015@gmail.com",
+        "service": 1,
+        "message": "Test",
+        "created_at": "2025-08-18T14:51:44.959Z"
+    }
+},
+{
+    "model": "about.about",
+    "pk": 1,
+    "fields": {
+        "description": "<p><span style=\"background-color:rgb(255,255,255);color:hsl(0,0%,0%);\">With years of experience in education consulting and cybersecurity, I specialize in helping individuals achieve their academic and professional goals. My personalized approach ensures that each client receives tailored guidance that fits their unique needs.</span></p>"
+    }
+},
+{
+    "model": "about.aboutfeature",
+    "pk": 1,
+    "fields": {
+        "about": 1,
+        "icon": "<i class=\"bi bi-postcard\"></i>",
+        "title": "5+ Years",
+        "description": "Experience in education consulting"
+    }
+},
+{
+    "model": "about.aboutfeature",
+    "pk": 2,
+    "fields": {
+        "about": 1,
+        "icon": "<i class=\"bi bi-postcard\"></i>",
+        "title": "200+",
+        "description": "Successful university admissions"
+    }
+},
+{
+    "model": "about.aboutfeature",
+    "pk": 3,
+    "fields": {
+        "about": 1,
+        "icon": "<i class=\"bi bi-postcard\"></i>",
+        "title": "100%",
+        "description": "Client satisfaction rate"
+    }
+},
+{
+    "model": "about.mission",
+    "pk": 1,
+    "fields": {
+        "description": "<p><span style=\"background-color:rgb(255,255,255);color:hsl(0, 0%, 0%);\">To provide exceptional educational consulting and professional development services that transform lives and unlock potential. We believe that with the right guidance and support, anyone can achieve their goals.</span></p>"
+    }
+},
+{
+    "model": "about.missionfeature",
+    "pk": 1,
+    "fields": {
+        "mission": 1,
+        "mission_feature": "Personalized approach to each client's unique needs"
+    }
+},
+{
+    "model": "about.missionfeature",
+    "pk": 2,
+    "fields": {
+        "mission": 1,
+        "mission_feature": "Evidence-based strategies for success"
+    }
+},
+{
+    "model": "about.missionfeature",
+    "pk": 3,
+    "fields": {
+        "mission": 1,
+        "mission_feature": "Continuous support throughout the journey"
+    }
+},
+{
+    "model": "about.vision",
+    "pk": 1,
+    "fields": {
+        "description": "<p><span style=\"background-color:rgb(255,255,255);color:hsl(0, 0%, 0%);\">To be the leading platform for academic and professional development, creating a world where everyone has access to the resources and guidance they need to achieve their dreams.</span></p>"
+    }
+},
+{
+    "model": "about.visionfeature",
+    "pk": 1,
+    "fields": {
+        "vision": 1,
+        "vision_feature": "Global accessibility to quality education consulting"
+    }
+},
+{
+    "model": "about.visionfeature",
+    "pk": 2,
+    "fields": {
+        "vision": 1,
+        "vision_feature": "Innovation in educational technology and methods"
+    }
+},
+{
+    "model": "about.visionfeature",
+    "pk": 3,
+    "fields": {
+        "vision": 1,
+        "vision_feature": "Building a community of successful achievers"
+    }
+}
+]
