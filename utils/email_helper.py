@@ -1,44 +1,36 @@
 # utils/email_helper.py
-from __future__ import print_function
-import sib_api_v3_sdk
-from sib_api_v3_sdk.rest import ApiException
+from django.core.mail import EmailMultiAlternatives
 
 def send_email(
-    api_key: str,
+    subject: str,
     to_email: str,
     to_name: str,
     sender_email: str,
     sender_name: str,
-    subject: str,
-    html_content: str
+    html_content: str,
+    text_content: str = None,
 ):
     """
-    Helper function to send a single email via Brevo (Sendinblue) API.
-
-    :param api_key: Your Brevo API key
-    :param to_email: Recipient email
-    :param to_name: Recipient name
-    :param sender_email: Sender email
-    :param sender_name: Sender name
-    :param subject: Email subject
-    :param html_content: HTML content of the email
+    Helper function to send an email using Django's EmailMultiAlternatives.
     """
-    # Configure API key
-    configuration = sib_api_v3_sdk.Configuration()
-    configuration.api_key['api-key'] = api_key
-    api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
+    # If no plain text is provided, strip tags as fallback
+    if not text_content:
+        import re
+        text_content = re.sub(r"<[^>]*>", "", html_content)
 
-    # Create the email object
-    email = sib_api_v3_sdk.SendSmtpEmail(
-        to=[{"email": to_email, "name": to_name}],
-        sender={"email": sender_email, "name": sender_name},
-        subject=subject,
-        html_content=html_content
-    )
+    from_email = f"{sender_name} <{sender_email}>"
+    recipient = [f"{to_name} <{to_email}>"]
 
     try:
-        response = api_instance.send_transac_email(email)
-        return response
-    except ApiException as e:
+        email = EmailMultiAlternatives(
+            subject=subject,
+            body=text_content,
+            from_email=from_email,
+            to=recipient,
+        )
+        email.attach_alternative(html_content, "text/html")
+        email.send()
+        return True
+    except Exception as e:
         print("Error sending email:", e)
-        return None
+        return False

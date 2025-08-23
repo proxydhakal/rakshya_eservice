@@ -11,6 +11,7 @@ from django.conf import settings
 from apps.core.forms import BookingForm
 from utils.email_helper import send_email
 import logging
+from datetime import datetime
 from decouple import config, Csv
 
 BREVO_API_KEY = config("BREVO_API_KEY")
@@ -52,7 +53,7 @@ def home(request):
     try:
         services = (
             Service.objects.prefetch_related('features')  # Fetch related features efficiently
-            .all()[:3]  # Limit to 3 services
+            .all()[:6]  # Limit to 3 services
         )
     except Exception as e:
         services = []
@@ -110,45 +111,49 @@ def submit_booking(request):
 
             # --- Email to site owner ---
             subject_owner = f"New Booking: {booking.service.name}"
-            html_content_owner = render_to_string('emails/booking_owner.html', {'booking': booking})
+            html_content_owner = render_to_string(
+                "emails/booking_owner.html",
+                {"booking": booking, "current_year": datetime.now().year}
+            )
 
             try:
-                response_owner = send_email(
-                    api_key=BREVO_API_KEY,
-                    to_email='proxydhakal@gmail.com',
-                    to_name='Site Owner',
-                    sender_email=settings.DEFAULT_FROM_EMAIL,
-                    sender_name='Careerguide.Academy',
+                success_owner = send_email(
                     subject=subject_owner,
-                    html_content=html_content_owner
+                    to_email="rakshyaneupane557@gmail.com",
+                    to_name="Site Owner",
+                    sender_email=settings.DEFAULT_FROM_EMAIL,
+                    sender_name="Careerguide.Academy",
+                    html_content=html_content_owner,
                 )
-                if not response_owner:
+                if not success_owner:
                     raise Exception("Owner email not sent")
             except Exception as e:
-                return JsonResponse({'success': False, 'message': f'Failed to send owner email: {str(e)}'})
+                return JsonResponse({"success": False, "message": f"Failed to send owner email: {str(e)}"})
 
             # --- Email to user ---
             subject_user = "Booking Confirmation"
-            html_content_user = render_to_string('emails/booking_user.html', {'booking': booking})
+            html_content_user = render_to_string(
+                "emails/booking_user.html",
+                {"booking": booking, "current_year": datetime.now().year}
+            )
 
             try:
-                response_user = send_email(
-                    api_key=BREVO_API_KEY,
+                success_user = send_email(
+                    subject=subject_user,
                     to_email=booking.email,
                     to_name=booking.full_name,
                     sender_email=settings.DEFAULT_FROM_EMAIL,
-                    sender_name='Careerguide.Academy',
-                    subject=subject_user,
-                    html_content=html_content_user
+                    sender_name="Careerguide.Academy",
+                    html_content=html_content_user,
                 )
-                if not response_user:
+                if not success_user:
                     raise Exception("User confirmation email not sent")
             except Exception as e:
-                return JsonResponse({'success': False, 'message': f'Failed to send confirmation email: {str(e)}'})
+                return JsonResponse({"success": False, "message": f"Failed to send confirmation email: {str(e)}"})
 
-            return JsonResponse({'success': True, 'message': "Your booking has been submitted successfully!"})
+            return JsonResponse({"success": True, "message": "Your booking has been submitted successfully!"})
         else:
             errors = {field: [str(err) for err in errs] for field, errs in form.errors.items()}
-            return JsonResponse({'success': False, 'errors': errors})
+            return JsonResponse({"success": False, "errors": errors})
 
-    return JsonResponse({'success': False, 'message': 'Invalid request method'})
+    return JsonResponse({"success": False, "message": "Invalid request method"})
