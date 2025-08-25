@@ -1,5 +1,6 @@
 {% extends "partials/base.html" %} 
-{% load static %} 
+{% load static %}
+{% load custom_filters %}
 {% block navbar %} 
 {% include "partials/navbar.html" %} 
 {% endblock navbar %}  
@@ -188,7 +189,7 @@
 <section id="blog" class="blog-section">
     <div class="container">
         <div class="section-header">
-            <h2 class="section-title animate-fade-in-up">Success Stories & Insights</h2>
+            <h2 class="section-title animate-fade-in-up">Blogs & Insights</h2>
             <p class="section-description animate-fade-in-up delay-200">
                 Discover practical tips, success stories, and expert insights to help you achieve 
                 your academic and professional goals.
@@ -236,6 +237,60 @@
 
         </div>
     </div>
+</section>
+
+<!-- Review Carousel Section -->
+<section id="reviews" class="w-100 py-5" style="background: rgba(87, 185, 255, 0.05);">
+  <div class="container text-center mb-4">
+    <h2 class="section-title">Success Stories & Reviews</h2>
+    <p class="section-description mx-auto" style="max-width: 600px;">
+      Read what our clients have to say and explore real success stories from those 
+      who achieved their academic and career goals with our guidance.
+    </p>
+  </div>
+
+  <div id="reviewCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+    <div class="carousel-inner">
+      {% for review in approved_reviews %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <div class="d-flex justify-content-center mt-4">
+            <div class="card p-4" style="width: 20rem;">
+              <div class="card-body text-center">
+                <h5 class="card-title">{{ review.name }}</h5>
+                <p class="text-muted">{{ review.email|mask_email }}</p>
+                <span class="badge 
+                  {% if review.service.name == 'Cybersecurity Training' %}badge-primary{% endif %}
+                  {% if review.service.name == 'University Admission' %}badge-success{% endif %}
+                  {% if review.service.name == 'Career Counseling' %}badge-info{% endif %}
+                  {% if review.service.name == 'Digital Marketing' %}badge-warning{% endif %}
+                  {% if review.service.name == 'Python Training' %}badge-secondary{% endif %}
+                mb-2">{{ review.service.name }}</span>
+
+                <div class="mb-3 text-warning">
+                  {% for i in "12345"|slice:":review.rating"|make_list %}★{% endfor %}
+                  {% for i in "12345"|slice:"review.rating:"|make_list %}☆{% endfor %}
+                </div>
+
+                <p class="card-text">{{ review.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p>No reviews available.</p>
+      {% endfor %}
+    </div>
+
+    <!-- Carousel Controls -->
+    <a class="carousel-control-prev" href="#reviewCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#reviewCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
 </section>
 
 
@@ -386,6 +441,133 @@
         </div>
     </div>
 </div>
+
+<!-- Floating Review Button -->
+<button id="addReviewBtn" class="btn btn-primary"
+        style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; 
+               width: 60px; height: 60px; border-radius: 50%; 
+               display: flex; align-items: center; justify-content: center; 
+               font-size: 14px; padding: 0;">
+    +
+</button>
+
+
+<div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-labelledby="addReviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content p-4">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addReviewModalLabel">Add Your Review</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="reviewForm">
+          <div class="form-group">
+            <label for="reviewName">Name</label>
+            <input type="text" class="form-control custom-input" id="reviewName" placeholder="Enter your name" required>
+          </div>
+          <div class="form-group">
+            <label for="reviewEmail">Email</label>
+            <input type="email" class="form-control custom-input" id="reviewEmail" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label for="reviewService">Service</label>
+            <select class="form-select custom-input" id="reviewService" required>
+                <option value="">Select Service</option>
+                {% for service in services %}
+                    <option value="{{ service.id }}">{{ service.name }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="reviewRating">Rating</label>
+            <select class="form-select custom-input" id="reviewRating" required>
+              <option value="">Select Rating</option>
+              <option value="5">★★★★★</option>
+              <option value="4">★★★★☆</option>
+              <option value="3">★★★☆☆</option>
+              <option value="2">★★☆☆☆</option>
+              <option value="1">★☆☆☆☆</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="reviewDescription">Review</label>
+            <textarea class="form-control custom-input custom-textarea" id="reviewDescription" rows="4" placeholder="Write your review..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Submit Review</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  $(document).ready(function(){
+    // Open modal when button is clicked
+    $('#addReviewBtn').click(function(){
+      $('#addReviewModal').modal('show');
+    });
+
+    // Form submit
+    $('#reviewForm').submit(function(e){
+      e.preventDefault();
+
+      // Fetch values
+      let name = $('#reviewName').val().trim();
+      let email = $('#reviewEmail').val().trim();
+      let service = $('#reviewService').val();
+      let rating = $('#reviewRating').val();
+      let description = $('#reviewDescription').val().trim();
+
+      // Name validation: only letters, spaces, hyphens
+      let nameRegex = /^[a-zA-Z\s\-]+$/;
+      if(!nameRegex.test(name)){
+        Swal.fire('Error', 'Name can only contain letters, spaces, or hyphens.', 'error');
+        return;
+      }
+
+      // Email validation
+      let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if(!emailRegex.test(email)){
+        Swal.fire('Error', 'Enter a valid email address.', 'error');
+        return;
+      }
+
+      if(!service || !rating || !description){
+        Swal.fire('Error', 'Please fill all the fields.', 'error');
+        return;
+      }
+
+      // AJAX POST request to Django view
+      $.ajax({
+        url: "{% url 'core:add_review_ajax' %}", // Django URL
+        type: "POST",
+        data: {
+          'name': name,
+          'email': email,
+          'service': service,
+          'rating': rating,
+          'description': description,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function(response){
+          Swal.fire('Success', 'Thank you for your review!', 'success');
+          $('#addReviewModal').modal('hide');
+          $('#reviewForm')[0].reset();
+        },
+        error: function(xhr, status, error){
+          Swal.fire('Error', 'Failed to submit review. Try again later.', 'error');
+        }
+      });
+    });
+  });
+</script>
+
+
+
 {% endblock main %}
 {% block footer %} 
 {% include "partials/footer.html" %} 

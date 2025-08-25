@@ -43,3 +43,31 @@ class ServiceFeature(models.Model):
     def __str__(self):
         return f"{self.service.name} - {self.text}"
 
+class Review(models.Model):
+    STATUS_CHOICES = [
+        ('PENDING', 'Pending'),
+        ('APPROVED', 'Approved'),
+    ]
+
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    service = models.ForeignKey(
+        Service,
+        on_delete=models.CASCADE,  # Delete review if service is deleted
+        related_name='reviews'
+    )
+    rating = models.PositiveSmallIntegerField()  # e.g., 1 to 5
+    description = models.TextField()
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS_CHOICES,
+        default='PENDING'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.name} - {self.service.name} - {self.status}"

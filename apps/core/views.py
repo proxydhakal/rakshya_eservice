@@ -13,6 +13,11 @@ from utils.email_helper import send_email
 import logging
 from datetime import datetime
 from decouple import config, Csv
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from .models import Review, Service
+import json
 
 BREVO_API_KEY = config("BREVO_API_KEY")
 logger = logging.getLogger(__name__)
@@ -59,6 +64,12 @@ def home(request):
         services = []
         logger.error(f"Error fetching services: {e}")
 
+    try:
+        # Fetch only approved reviews
+        approved_reviews = Review.objects.filter(status='APPROVED').select_related('service')
+    except Exception as e:
+        approved_reviews = []
+        logger.error(f"Error fetching services or reviews: {e}")
     # Fetch About singleton and its features
     try:
         about = About.objects.prefetch_related('features').first()
@@ -96,6 +107,7 @@ def home(request):
         'services': services,  # Pass services to template
         'about': about,                  # About singleton
         'about_features': about_features,
+        'approved_reviews':approved_reviews,
         'mission': mission,
         'mission_features': mission_features,
         'vision': vision,
@@ -157,3 +169,51 @@ def submit_booking(request):
             return JsonResponse({"success": False, "errors": errors})
 
     return JsonResponse({"success": False, "message": "Invalid request method"})
+
+
+
+@require_POST
+def add_review_ajax(request):
+    try:
+        name = request.POST.get('name', '').strip()
+        email = request.POST.get('email', '').strip()
+        service_id = request.POST.get('service')
+        rating = request.POST.get('rating')
+        description = request.POST.get('description', '').strip()
+
+        # Basic server-side validation
+        if not all([name, email, service_id, rating, description]):
+            return JsonResponse({'error': 'All fields are required.'}, status=400)
+
+        # Validate name
+        import re
+        if not re.match(r'^[a-zA-Z\s\-]+$', name):
+            return JsonResponse({'error': 'Invalid name format.'}, status=400)
+
+        # Validate email
+        from django.core.validators import validate_email
+        from django.core.exceptions import ValidationError
+        try:
+            validate_email(email)
+        except ValidationError:
+            return JsonResponse({'error': 'Invalid email address.'}, status=400)
+
+        # Validate service
+        try:
+            service = Service.objects.get(id=service_id)
+        except Service.DoesNotExist:
+            return JsonResponse({'error': 'Selected service does not exist.'}, status=400)
+
+        # Save review
+        review = Review.objects.create(
+            name=name,
+            email=email,
+            service=service,
+            rating=int(rating),
+            description=description,
+        )
+
+        return JsonResponse({'success': 'Review submitted successfully!'})
+    
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)

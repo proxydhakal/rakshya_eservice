@@ -1455,3 +1455,68 @@ a:hover,
     background-color: #0d6efd;
     color: #fff !important;
 }
+
+#reviews .card {
+  border-radius: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#reviews .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+#reviews .section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+#reviews .section-description {
+  font-size: 1.125rem;
+  color: #555;
+}
+/* Full-width modal for all screens */
+.modal-lg {
+    max-width: 90% !important; /* nearly full width */
+}
+
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 0;
+        max-width: 100%;
+    }
+    .modal-content {
+        border-radius: 0;
+        padding: 15px;
+    }
+}
+
+
+.modal-dialog {
+    max-width: 600px; /* default width */
+    margin: 1.75rem auto; /* center vertically */
+}
+
+@media (max-width: 768px) {
+    .modal-dialog {
+        max-width: 90%; /* full-width on tablets & mobiles */
+        margin: 1rem auto; /* small top-bottom margin */
+    }
+}
+
+/* Full-width and nicely padded inputs */
+.custom-input {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    transition: 0.3s;
+}
+
+.custom-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.5);
+    outline: none;
+}
+

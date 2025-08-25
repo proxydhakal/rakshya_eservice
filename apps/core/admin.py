@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.core.models import Service, Booking, ServiceFeature
+from apps.core.models import Service, Booking, ServiceFeature, Review
 
 admin.site.site_header = "Careerguide Academy Admin"
 admin.site.site_title = "Careerguide Academy Portal"
@@ -30,3 +30,16 @@ class BookingAdmin(admin.ModelAdmin):
 class ServiceFeatureAdmin(admin.ModelAdmin):
     list_display = ("service", "text")
     search_fields = ("text", "service__name")
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'service', 'rating', 'status', 'created_at')
+    list_filter = ('status', 'service', 'rating', 'created_at')
+    search_fields = ('name', 'email', 'description', 'service__name')
+    actions = ['approve_reviews']
+
+    def approve_reviews(self, request, queryset):
+        updated = queryset.update(status='APPROVED')
+        self.message_user(request, f"{updated} review(s) approved successfully.")
+    approve_reviews.short_description = "Approve selected reviews"
