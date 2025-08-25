@@ -258,19 +258,16 @@
               <div class="card-body text-center">
                 <h5 class="card-title">{{ review.name }}</h5>
                 <p class="text-muted">{{ review.email|mask_email }}</p>
-                <span class="badge 
-                  {% if review.service.name == 'Cybersecurity Training' %}badge-primary{% endif %}
-                  {% if review.service.name == 'University Admission' %}badge-success{% endif %}
-                  {% if review.service.name == 'Career Counseling' %}badge-info{% endif %}
-                  {% if review.service.name == 'Digital Marketing' %}badge-warning{% endif %}
-                  {% if review.service.name == 'Python Training' %}badge-secondary{% endif %}
-                mb-2">{{ review.service.name }}</span>
-
+                <span class="badge badge-primary mb-2">{{ review.service.name }}</span> 
                 <div class="mb-3 text-warning">
-                  {% for i in "12345"|slice:":review.rating"|make_list %}★{% endfor %}
-                  {% for i in "12345"|slice:"review.rating:"|make_list %}☆{% endfor %}
+                {% for i in "12345"|make_list %}
+                    {% if forloop.counter <= review.rating %}
+                    ★
+                    {% else %}
+                    ☆
+                    {% endif %}
+                {% endfor %}
                 </div>
-
                 <p class="card-text">{{ review.description }}</p>
               </div>
             </div>
