@@ -152,7 +152,11 @@ def submit_booking(request):
             subject_user = "Booking Confirmation"
             html_content_user = render_to_string(
                 "emails/booking_user.html",
-                {"booking": booking, "current_year": now().year}
+                {
+                    "booking": booking,
+                    "current_year": now().year,
+                    "base_url": request.build_absolute_uri('/')[:-1]  # e.g. https://yourdomain.com
+                }
             )
             send_email(
                 subject=subject_user,
