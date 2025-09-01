@@ -70,49 +70,59 @@ $("#contactForm").submit(function(e){
 });
 </script>
 <script>
-function showBookingForm(serviceId) {
-    const $form = $('#bookingForm');
-    $form[0].reset();
-    $form.find('.error-msg').remove();
-    $form.find('.has-error').removeClass('has-error');
-
-    $form.find('input[name="service"]').remove();
-    $form.append('<input type="hidden" name="service" value="'+serviceId+'">');
-
-    $('#bookingModal').modal('show');
-}
-
 function closeBookingModal() {
     $('#bookingModal').modal('hide');
 }
 
+function showBookingForm(serviceId){
+    const $form=$('#bookingForm');
+    $form[0].reset();
+    $form.find('input[name="service"]').remove();
+    $form.append('<input type="hidden" name="service" value="'+serviceId+'">');
+    const $slotSelect=$("#bookingSlot");
+    $slotSelect.empty().append('<option value="">-- Select Slot --</option>');
+    $.ajax({
+        url:`/get-slots/${serviceId}/`,
+        method:"GET",
+        success:function(response){
+            if(response.slots.length>0){
+                $.each(response.slots,function(i,slot){
+                    $slotSelect.append(`<option value="${slot.id}">${slot.date} | ${slot.start_time} - ${slot.end_time}</option>`);
+                });
+            }else{
+                $slotSelect.append('<option value="" disabled>No slots available</option>');
+            }
+        },
+        error:function(){
+            $slotSelect.append('<option value="" disabled>Error loading slots</option>');
+        }
+    });
+    $('#bookingModal').modal('show');
+}
 $("#bookingForm").submit(function(e){
     e.preventDefault();
-    const $form = $(this);
-
-    // Clear previous errors
+    const $form=$(this);
     $form.find('.error-msg').remove();
     $form.find('.has-error').removeClass('has-error');
-
-    // Show spinner
     $("#formSpinner").show();
-
     $.ajax({
-        type: "POST",
-        url: "{% url 'core:submit_booking' %}",
-        data: $form.serialize(),
-        headers: { "X-CSRFToken": csrftoken },
+        type:"POST",
+        url:"{% url 'core:submit_booking' %}",
+        data:$form.serialize(),
+        headers:{"X-CSRFToken":csrftoken},
         success: function(response){
-            // Hide spinner
             $("#formSpinner").hide();
-
+            closeBookingModal(); // hide modal
             if(response.success){
-                closeBookingModal();
                 Swal.fire({
                     icon: 'success',
                     title: 'Booking Received!',
                     text: response.message,
                     confirmButtonColor: '#3085d6'
+                }).then(() => {
+                    if(response.redirect_url){
+                        window.location.href = response.redirect_url; // redirect after user clicks "OK"
+                    }
                 });
                 $form[0].reset();
             } else {
@@ -133,21 +143,13 @@ $("#bookingForm").submit(function(e){
                 }
             }
         },
-        error: function(){
-            // Hide spinner
+        error:function(){
             $("#formSpinner").hide();
-
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'An unexpected error occurred. Please try again!',
-                confirmButtonColor: '#d33'
-            });
+            Swal.fire({icon:'error',title:'Oops...',text:'An unexpected error occurred. Please try again!',confirmButtonColor:'#d33'});
         }
     });
 });
 </script>
-
 
 <script>
     function getCookie(name) {
@@ -165,4 +167,36 @@ $("#bookingForm").submit(function(e){
         return cookieValue;
     }
     const csrftoken = getCookie('csrftoken');
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+            Swal.fire({
+                icon: 'success',
+                title: '{{ message }}',
+                confirmButtonText: 'OK'
+            });
+        {% elif message.tags == 'error' %}
+            Swal.fire({
+                icon: 'error',
+                title: '{{ message }}',
+                confirmButtonText: 'OK'
+            });
+        {% elif message.tags == 'info' %}
+            Swal.fire({
+                icon: 'info',
+                title: '{{ message }}',
+                confirmButtonText: 'OK'
+            });
+        {% elif message.tags == 'warning' %}
+            Swal.fire({
+                icon: 'warning',
+                title: '{{ message }}',
+                confirmButtonText: 'OK'
+            });
+        {% endif %}
+    {% endfor %}
+{% endif %}
 </script>

@@ -78,47 +78,6 @@ document.addEventListener('DOMContentLoaded', function() {
     updateNavbar();
 });
 
-// // Booking modal functionality
-// function showBookingForm(serviceId) {
-//     const modal = document.getElementById('bookingModal');
-//     const title = document.getElementById('bookingTitle');
-    
-//     const services = {
-//         'university-admission': 'Book University Admission Help - $40 USD',
-//         'resume-review': 'Book Resume Review - $50 USD',
-//         'cybersecurity-training': 'Book Cybersecurity Training - Contact for Pricing'
-//     };
-    
-//     title.textContent = services[serviceId] || 'Book Appointment';
-//     modal.classList.add('active');
-    
-//     // Prevent background scrolling
-//     document.body.style.overflow = 'hidden';
-    
-//     // Set minimum date to today
-//     const dateInput = document.getElementById('bookingDate');
-//     const today = new Date().toISOString().split('T')[0];
-//     dateInput.min = today;
-// }
-
-// function closeBookingModal() {
-//     const modal = document.getElementById('bookingModal');
-//     modal.classList.remove('active');
-    
-//     // Restore background scrolling
-//     document.body.style.overflow = 'auto';
-    
-//     // Reset form
-//     document.getElementById('bookingForm').reset();
-// }
-
-// // Close modal when clicking outside
-// document.getElementById('bookingModal').addEventListener('click', function(e) {
-//     if (e.target === this) {
-//         closeBookingModal();
-//     }
-// });
-
 // Toast notification functionality
 function showToast(message, type = 'success') {
     const toast = document.getElementById('successToast');

@@ -1571,3 +1571,6 @@ a:hover,
     outline: none;
 }
 
+.payment-section {
+    margin-top: 4rem !important; /* adjust to your navbar height */
+}

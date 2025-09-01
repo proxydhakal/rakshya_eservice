@@ -1,14 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from apps.blog.models import Blog
 from apps.settings.models import SiteSettings  # Import your singleton model
-from apps.core.models import Service
+from apps.core.models import Service, Booking,TimeSlot
 from apps.about.models import About, AboutFeature, Mission, Vision
 from django.db.models import Prefetch
+from django.contrib import messages
 from django.http import JsonResponse
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.conf import settings
-from apps.core.forms import BookingForm
+from apps.core.forms import BookingForm, PaymentProofForm
 from utils.email_helper import send_email
 import logging
 from datetime import datetime
@@ -16,7 +17,8 @@ from decouple import config, Csv
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from .models import Review, Service
+from .models import Review, Service, TimeSlot
+from django.utils.timezone import now
 import json
 
 BREVO_API_KEY = config("BREVO_API_KEY")
@@ -50,27 +52,30 @@ def home(request):
 
     # Fetch site settings (singleton)
     try:
-        site_settings = SiteSettings.objects.first()  # Always only one record
+        site_settings = SiteSettings.objects.first()
     except SiteSettings.DoesNotExist:
         site_settings = None
         logger.warning("No SiteSetting found")
-        # Fetch 3 services with features
+
+    # Fetch services with features and time slots
     try:
         services = (
-            Service.objects.prefetch_related('features')  # Fetch related features efficiently
-            .all()[:6]  # Limit to 3 services
+            Service.objects
+            .prefetch_related('features', 'time_slots')  
+            .all()[:6]
         )
     except Exception as e:
         services = []
         logger.error(f"Error fetching services: {e}")
 
+    # Fetch only approved reviews
     try:
-        # Fetch only approved reviews
         approved_reviews = Review.objects.filter(status='APPROVED').select_related('service')
     except Exception as e:
         approved_reviews = []
         logger.error(f"Error fetching services or reviews: {e}")
-    # Fetch About singleton and its features
+
+    # Fetch About singleton and features
     try:
         about = About.objects.prefetch_related('features').first()
         about_features = about.features.all() if about else []
@@ -79,7 +84,7 @@ def home(request):
         about_features = []
         logger.error(f"Error fetching About section: {e}")
 
-        # Fetch Mission singleton and its features
+    # Fetch Mission singleton and features
     try:
         mission = Mission.objects.prefetch_related('features').first()
         mission_features = mission.features.all() if mission else []
@@ -88,7 +93,7 @@ def home(request):
         mission_features = []
         logger.error(f"Error fetching Mission section: {e}")
 
-    # Fetch Vision singleton and its features
+    # Fetch Vision singleton and features
     try:
         vision = Vision.objects.prefetch_related('features').first()
         vision_features = vision.features.all() if vision else []
@@ -103,11 +108,11 @@ def home(request):
         'meta_keywords': site_settings.meta_keywords if site_settings else 'portfolio, services, blog, cybersecurity',
         'message': 'Welcome to Rakshya eService!',
         'latest_blogs': latest_blogs,
-        'site_settings': site_settings,  # Pass entire object if needed
-        'services': services,  # Pass services to template
-        'about': about,                  # About singleton
+        'site_settings': site_settings,
+        'services': services,
+        'about': about,
         'about_features': about_features,
-        'approved_reviews':approved_reviews,
+        'approved_reviews': approved_reviews,
         'mission': mission,
         'mission_features': mission_features,
         'vision': vision,
@@ -115,62 +120,91 @@ def home(request):
     }
     return render(request, 'index.html', context)
 
+
 def submit_booking(request):
     if request.method == "POST":
+        service_id = request.POST.get("service")
+        service = get_object_or_404(Service, id=service_id)
+
         form = BookingForm(request.POST)
         if form.is_valid():
             booking = form.save()
 
-            # --- Email to site owner ---
+            # Mark slot unavailable
+            booking.slot.is_available = False
+            booking.slot.save()
+
+            # --- Email notifications ---
             subject_owner = f"New Booking: {booking.service.name}"
             html_content_owner = render_to_string(
                 "emails/booking_owner.html",
-                {"booking": booking, "current_year": datetime.now().year}
+                {"booking": booking, "current_year": now().year}
+            )
+            send_email(
+                subject=subject_owner,
+                to_email="rakshyaneupane557@gmail.com",
+                to_name="Site Owner",
+                sender_email=settings.DEFAULT_FROM_EMAIL,
+                sender_name="Careerguide.Academy",
+                html_content=html_content_owner,
             )
 
-            try:
-                success_owner = send_email(
-                    subject=subject_owner,
-                    to_email="rakshyaneupane557@gmail.com",
-                    to_name="Site Owner",
-                    sender_email=settings.DEFAULT_FROM_EMAIL,
-                    sender_name="Careerguide.Academy",
-                    html_content=html_content_owner,
-                )
-                if not success_owner:
-                    raise Exception("Owner email not sent")
-            except Exception as e:
-                return JsonResponse({"success": False, "message": f"Failed to send owner email: {str(e)}"})
-
-            # --- Email to user ---
             subject_user = "Booking Confirmation"
             html_content_user = render_to_string(
                 "emails/booking_user.html",
-                {"booking": booking, "current_year": datetime.now().year}
+                {"booking": booking, "current_year": now().year}
+            )
+            send_email(
+                subject=subject_user,
+                to_email=booking.email,
+                to_name=booking.full_name,
+                sender_email=settings.DEFAULT_FROM_EMAIL,
+                sender_name="Careerguide.Academy",
+                html_content=html_content_user,
             )
 
-            try:
-                success_user = send_email(
-                    subject=subject_user,
-                    to_email=booking.email,
-                    to_name=booking.full_name,
-                    sender_email=settings.DEFAULT_FROM_EMAIL,
-                    sender_name="Careerguide.Academy",
-                    html_content=html_content_user,
-                )
-                if not success_user:
-                    raise Exception("User confirmation email not sent")
-            except Exception as e:
-                return JsonResponse({"success": False, "message": f"Failed to send confirmation email: {str(e)}"})
+            # --- JSON vs Redirect ---
+            redirect_url = f"/payment/{booking.id}/"  # or use reverse("payment_page", args=[booking.id])
+            if request.headers.get("x-requested-with") == "XMLHttpRequest":
+                return JsonResponse({
+                    "success": True,
+                    "message": "Your booking has been received! Please proceed with payment.",
+                    "redirect_url": redirect_url
+                })
+            else:
+                return redirect("payment_page", booking_id=booking.id)
 
-            return JsonResponse({"success": True, "message": "Your booking has been submitted successfully!"})
         else:
-            errors = {field: [str(err) for err in errs] for field, errs in form.errors.items()}
-            return JsonResponse({"success": False, "errors": errors})
+            if request.headers.get("x-requested-with") == "XMLHttpRequest":
+                return JsonResponse({
+                    "success": False,
+                    "errors": form.errors
+                }, status=400)
 
-    return JsonResponse({"success": False, "message": "Invalid request method"})
+    else:
+        form = BookingForm()
+
+    return render(request, "index.html", {"form": form})
 
 
+def payment_page(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id)
+
+    if request.method == "POST":
+        form = PaymentProofForm(request.POST, request.FILES, instance=booking)
+        if form.is_valid():
+            booking = form.save(commit=False)
+            booking.status = "payment_uploaded"
+            booking.save()
+
+            # Add success message
+            messages.success(request, "File uploaded successfully. You will be notified by email shortly.")
+
+            return redirect("core:home")  # redirect to home page
+    else:
+        form = PaymentProofForm(instance=booking)
+
+    return render(request, "payment_page.html", {"booking": booking, "form": form})
 
 @require_POST
 def add_review_ajax(request):
@@ -217,3 +251,16 @@ def add_review_ajax(request):
     
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
+def get_service_slots(request, service_id):
+    slots = TimeSlot.objects.filter(service_id=service_id, is_available=True).order_by("date", "start_time")
+    data = [
+        {
+            "id": slot.id,
+            "date": slot.date.strftime("%Y-%m-%d"),
+            "start_time": slot.start_time.strftime("%H:%M"),
+            "end_time": slot.end_time.strftime("%H:%M"),
+        }
+        for slot in slots
+    ]
+    return JsonResponse({"slots": data})

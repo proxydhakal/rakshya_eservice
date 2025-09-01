@@ -35,3 +35,11 @@ class BookingForm(forms.ModelForm):
     def clean_notes(self):
         notes = self.cleaned_data.get('notes', '')
         return strip_tags(notes).strip()
+
+class PaymentProofForm(forms.ModelForm):
+    class Meta:
+        model = Booking
+        fields = ["payment_proof"]
+        widgets = {
+            "payment_proof": forms.ClearableFileInput(attrs={"class": "form-control"})
+        }

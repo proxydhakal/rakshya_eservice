@@ -173,7 +173,6 @@
                             <li>{{ feature.text }}</li>
                         {% endfor %}
                     </ul>
-
                     <div class="service-buttons">
                         <button class="btn btn-primary" onclick="showBookingForm('{{ service.id }}')">Book Now</button>
                         <button class="btn btn-outline">Learn More</button>
@@ -390,52 +389,50 @@
     </div>
 </section>
 <div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="bookingModalLabel">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document"> <!-- centers vertically -->
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="bookingModalLabel">Book Appointment</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeBookingModal()">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <form id="bookingForm" method="POST">
-            {% csrf_token %}
-            <div class="modal-body">
-            <div class="form-group">
-                <label for="bookingName">Full Name *</label>
-                <input type="text" class="form-control" id="bookingName" name="full_name" required>
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookingModalLabel">Book Appointment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeBookingModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <!-- Direct POST submission -->
+            <form id="bookingForm" method="POST">
+                {% csrf_token %}
+                <div class="modal-body">
 
-            <div class="form-group">
-                <label for="bookingEmail">Email Address *</label>
-                <input type="email" class="form-control" id="bookingEmail" name="email" required>
-            </div>
+                    <div class="form-group">
+                        <label for="bookingName">Full Name *</label>
+                        <input type="text" class="form-control" id="bookingName" name="full_name" required>
+                    </div>
 
-            <div class="form-row custom-form-row">
-                <div class="form-group">
-                    <label for="bookingDate">Preferred Date *</label>
-                    <input type="date" class="form-control" id="bookingDate" name="preferred_date" required>
+                    <div class="form-group">
+                        <label for="bookingEmail">Email Address *</label>
+                        <input type="email" class="form-control" id="bookingEmail" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookingSlot">Choose Time Slot *</label>
+                        <select class="form-select" name="slot" id="bookingSlot" required>
+                            <option value="">-- Select Slot --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bookingNotes">Additional Notes</label>
+                        <textarea class="form-control" id="bookingNotes" name="notes" rows="4" placeholder="Any specific questions or information you'd like to share?"></textarea>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="bookingTime">Preferred Time *</label>
-                    <input type="time" class="form-control" id="bookingTime" name="preferred_time" required>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeBookingModal()">Close</button>
+                    <button type="submit" class="btn btn-primary">Book Appointment</button>
                 </div>
-            </div>
-
-
-            <div class="form-group">
-                <label for="bookingNotes">Additional Notes</label>
-                <textarea class="form-control" id="bookingNotes" name="notes" rows="4" placeholder="Any specific questions or information you'd like to share?"></textarea>
-            </div>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeBookingModal()">Close</button>
-            <button type="submit" class="btn btn-primary">Book Appointment</button>
-            </div>
-        </form>
+            </form>
         </div>
     </div>
 </div>
+
 
 <!-- Floating Review Button -->
 <button id="addReviewBtn" class="btn btn-primary"
@@ -563,9 +560,6 @@
     });
   });
 </script>
-
-
-
 {% endblock main %}
 {% block footer %} 
 {% include "partials/footer.html" %} 
