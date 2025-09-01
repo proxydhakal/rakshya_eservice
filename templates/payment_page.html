@@ -13,12 +13,14 @@
         <div class="row mb-4 align-items-center">
             <div class="col-md-12 text-center">
                 <h2>Complete Your Payment</h2>
-                {% if booking.status != "payment_uploaded" or not booking.payment_proof %}
+                {% if booking.status == "pending" %}
                     <p class="text-muted">Please scan the QR code below and upload your payment proof to confirm your booking.</p>
-                {% else %}
-                    <p class="text-muted text-info">
-                        Payment has already been received and is under verification. You will receive an update shortly.
-                    </p>
+                {% elif booking.status == "payment_uploaded" %}
+                    <p class="text-info">✅ Payment has been uploaded and is under verification. You will receive an update shortly.</p>
+                {% elif booking.status == "confirmed" %}
+                    <p class="text-success">🎉 Your payment has been verified and your booking is confirmed. See you soon!</p>
+                {% elif booking.status == "cancelled" %}
+                    <p class="text-danger">❌ This booking has been cancelled. Please contact support if this is unexpected.</p>
                 {% endif %}
             </div>
         </div>
@@ -33,9 +35,11 @@
                         <p><strong>Name:</strong> {{ booking.full_name }}</p>
                         <p><strong>Email:</strong> {{ booking.email }}</p>
                         <p><strong>Status:</strong> 
-                            <span class="badge {% if booking.status == 'pending' %}bg-warning
+                            <span class="badge 
+                                {% if booking.status == 'pending' %}bg-warning
                                 {% elif booking.status == 'payment_uploaded' %}bg-info
                                 {% elif booking.status == 'confirmed' %}bg-success
+                                {% elif booking.status == 'cancelled' %}bg-danger
                                 {% else %}bg-secondary{% endif %}">
                                 {{ booking.get_status_display }}
                             </span>
@@ -46,7 +50,7 @@
         </div>
 
         <!-- QR + Upload -->
-        {% if booking.status != "payment_uploaded" or not booking.payment_proof %}
+        {% if booking.status == "pending" %}
         <div class="row g-4">
             <div class="col-md-6 text-center">
                 <h5>Scan to Pay</h5>

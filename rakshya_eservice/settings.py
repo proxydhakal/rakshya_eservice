@@ -54,6 +54,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -93,7 +94,7 @@ if ENVIRONMENT == "production":
             "ENGINE": "django.db.backends.mysql",
             "NAME": config("DB_NAME_PROD"),
             "USER": config("DB_USER_PROD", default="root"),
-            "PASSWORD": config("DB_PASSWORD_PROD"),
+            "PASSWORD": 'Nitrogen@55',
             "HOST": config("DB_HOST_PROD", default="localhost"),
             "PORT": config("DB_PORT_PROD", default="3306"),  # MySQL default port
         }
@@ -135,7 +136,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Los_Angeles'
 
 USE_I18N = True
 
@@ -150,8 +151,9 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 MEDIA_ROOT = BASE_DIR / 'media'
-STATIC_ROOT = BASE_DIR / 'staticfiles/'
 MEDIA_URL = '/media/'
+STATIC_ROOT = BASE_DIR / 'staticfiles/'
+
 
 
 # Default primary key field type

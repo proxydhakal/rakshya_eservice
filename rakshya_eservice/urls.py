@@ -1,37 +1,21 @@
-"""
-URL configuration for rakshya_eservice project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.views.static import serve
 
 urlpatterns = [
     path('iamadmin/', admin.site.urls),
-    
+
     # App URLs
-    # path('accounts/', include('apps.accounts.urls')),
-    # path('about/', include('apps.about.urls')),
     path('contact/', include('apps.contact.urls')),
-    path('', include('apps.core.urls', namespace='core')),  # core app
-    path('blog/', include('apps.blog.urls', namespace='blog')),  # blog app with namespace
+    path('', include(('apps.core.urls', 'core'), namespace='core')),
+    path('blog/', include(('apps.blog.urls', 'blog'), namespace='blog')),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
-]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # ✅ Media files (works for DEBUG=False too)
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+]
 
+# ✅ Static files (Django will serve in DEBUG=True; in production collectstatic should be used)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
